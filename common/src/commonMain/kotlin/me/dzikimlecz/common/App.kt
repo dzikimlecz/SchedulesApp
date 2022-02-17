@@ -30,8 +30,9 @@ fun App() {
 
     Scaffold(
         content = {
-            if (openedSchedule == null) SchedulesList(getSchedulesList(3)) { openedSchedule = it }
-            else ScheduleView(getSchedulesList(1)[0])
+            if (openedSchedule == null)
+                NoScheduleSelectedDisplay(viewMode, getSchedulesList(3)) { openedSchedule = it }
+            else ScheduleDisplay(getSchedulesList(1)[0], viewMode)
         },
         topBar = {
             TopAppBar(
@@ -57,7 +58,7 @@ fun App() {
             )
         },
         floatingActionButton = {
-                FloatingActionButton(onClick = {}) {
+                FloatingActionButton(onClick = { viewMode = ViewMode.Edit }) {
                     if (openedSchedule == null) Icon(Icons.Default.Add, "Create a new schedule")
                     else Icon(Icons.Default.Edit, "Edit Schedule")
                 }
